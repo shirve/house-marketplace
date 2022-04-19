@@ -10,6 +10,7 @@ import { doc, setDoc, serverTimestamp, FieldValue } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
+import OAuth from '../components/OAuth'
 
 interface FormData {
   name: string
@@ -114,6 +115,7 @@ const SignUp = () => {
           </button>
         </div>
       </form>
+      <OAuth />
       <Link to='/sign-in' className='registerLink'>
         Already have an account? Sign In
       </Link>
