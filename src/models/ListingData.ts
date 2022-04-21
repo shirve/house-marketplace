@@ -1,6 +1,6 @@
 export interface ListingData {
   userRef: string
-  type: 'rent' | 'sell'
+  type: 'rent' | 'sale'
   name: string
   imageUrls: string[]
   regularPrice: number
@@ -11,9 +11,5 @@ export interface ListingData {
   parking: boolean
   bathrooms: number
   bedrooms: number
-  geolocation: {
-    lat: number
-    lng: number
-  }
   timestamp: Date
 }
