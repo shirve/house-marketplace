@@ -2,6 +2,17 @@ import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from '../firebase.config'
+import { v4 as uuidv4 } from 'uuid'
+import { toast } from 'react-toastify'
+import { CreateListingData } from '../models/CreateListingData'
 
 interface FormData {
   userRef: string
@@ -99,6 +110,69 @@ const CreateListing = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
+
+    // Check if the discounted price isn't greater than regular price
+    if (discountedPrice >= regularPrice) {
+      setLoading(false)
+      toast.error('Discounted Price cant be greater than Regular Price')
+    }
+
+    // Check if the amount of the images is not greater than 6
+    if (images && images.length > 6) {
+      setLoading(false)
+      toast.error('You can upload maximum of 6 images')
+    }
+
+    // Store image in firebase
+    const storeImage = async (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const storage = getStorage()
+        const fileName = `${auth.currentUser?.uid}-${file.name}-${uuidv4()}`
+        const storageRef = ref(storage, `images/${fileName}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+
+        uploadTask.on(
+          'state_changed',
+          // (snapshot) => {
+          //   const progress =
+          //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          //   console.log('Upload is ' + progress + '% done')
+          // },
+          (error) => {
+            reject(error)
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              resolve(downloadURL)
+            })
+          }
+        )
+      })
+    }
+
+    // Store all images and create an array with stored image urls
+    const imageUrls = await Promise.all(
+      [...images].map((image) => storeImage(image))
+    ).catch(() => {
+      setLoading(false)
+      toast.error('Images uploading failed')
+      return
+    })
+
+    // Put all data together
+    const formDataCopy: CreateListingData = {
+      ...formData,
+      imageUrls,
+      timestamp: serverTimestamp(),
+    }
+    delete formDataCopy.images
+
+    // Add listing and navigate to it
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
+    setLoading(false)
+    toast.success('Listing added successfully')
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`)
   }
 
   if (loading) {
