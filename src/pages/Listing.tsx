@@ -6,6 +6,12 @@ import { db } from '../firebase.config'
 import Spinner from '../components/Spinner'
 import shareIcon from '../assets/svg/shareIcon.svg'
 import { ListingData } from '../models/ListingData'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
 
 const Listing = () => {
   const [listing, setListing] = useState<ListingData>({} as ListingData)
@@ -37,6 +43,19 @@ const Listing = () => {
 
   return (
     <main>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+      >
+        {listing.imageUrls.map((url, index) => (
+          <SwiperSlide key={index}>
+            <img src={url} alt='img' className='swiperSlideDiv' />
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <div
         className='shareIconDiv'
         onClick={() => {
