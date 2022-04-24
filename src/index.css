@@ -596,10 +596,9 @@ button {
 }
 
 .messageDiv {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 .messageLabel {
