@@ -52,7 +52,9 @@ const Listing = () => {
       >
         {listing.imageUrls.map((url, index) => (
           <SwiperSlide key={index}>
-            <img src={url} alt='img' className='swiperSlideDiv' />
+            <div className='swiperSlideDiv'>
+              <img src={url} alt='img' className='swiperSlideImg' />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
