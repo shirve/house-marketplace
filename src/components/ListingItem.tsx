@@ -7,10 +7,11 @@ import React from 'react'
 interface Props {
   listing: ListingData
   id: string
+  onEdit?: (id: string) => void
   onDelete?: (id: string, name: string) => void
 }
 
-const ListingItem = ({ listing, id, onDelete }: Props) => {
+const ListingItem = ({ listing, id, onEdit, onDelete }: Props) => {
   return (
     <React.Fragment>
       <li className='categoryListing'>
@@ -55,6 +56,15 @@ const ListingItem = ({ listing, id, onDelete }: Props) => {
           onClick={() => onDelete(id, listing.name)}
         >
           Delete listing
+        </button>
+      )}
+      {onEdit && (
+        <button
+          type='button'
+          className='editButton'
+          onClick={() => onEdit(id)}
+        >
+          Edit listing
         </button>
       )}
     </React.Fragment>

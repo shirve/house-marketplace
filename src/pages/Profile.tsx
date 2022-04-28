@@ -65,6 +65,10 @@ const Profile = () => {
     }
   }
 
+  const onEdit = (listingId: string) => {
+    navigate(`/edit-listing/${listingId}`)
+  }
+
   const onSubmit = async () => {
     try {
       if (auth.currentUser && auth.currentUser.displayName !== name) {
@@ -134,7 +138,7 @@ const Profile = () => {
             <p className="listingText">Your listings</p>
             <ul className="listingsList">
               {listings.map(listing => (
-                <ListingItem key={listing.id} listing={listing.data} id={listing.id} onDelete={() => onDelete(listing.id, listing.data.name)} />
+                <ListingItem key={listing.id} listing={listing.data} id={listing.id} onEdit={() => onEdit(listing.id)} onDelete={() => onDelete(listing.id, listing.data.name)} />
               ))}
             </ul>
           </React.Fragment>

@@ -1,11 +1,8 @@
-import { FieldValue } from 'firebase/firestore'
-
-export interface CreateListingData {
+export interface ListingFormData {
   userRef: string
   type: 'rent' | 'sale'
   name: string
-  images?: FileList
-  imageUrls: void | string[]
+  images: FileList
   regularPrice: number
   discountedPrice: number
   offer: boolean
@@ -14,5 +11,4 @@ export interface CreateListingData {
   parking: boolean
   bathrooms: number
   bedrooms: number
-  timestamp: FieldValue
 }

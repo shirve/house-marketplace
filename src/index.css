@@ -79,10 +79,23 @@ button {
   cursor: pointer;
   text-align: center;
   padding: 0.25rem;
-  margin: -1rem 0 1rem 0;
+  margin: 0 0 0 0;
   border-radius: 1rem;
   width: 100%;
   background: #fa4444;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.editButton {
+  cursor: pointer;
+  text-align: center;
+  padding: 0.25rem;
+  margin: 0.5rem 0 2rem 0;
+  border-radius: 1rem;
+  width: 100%;
+  background: #00cc66;
   color: #ffffff;
   font-weight: 600;
   font-size: 1rem;
