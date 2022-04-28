@@ -12,8 +12,8 @@ import { doc, updateDoc, getDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'react-toastify'
-import { ListingFormData } from '../models/ListingFormData';
-import { ListingData } from '../models/ListingData';
+import { ListingFormData } from '../models/ListingFormData'
+import { ListingData } from '../models/ListingData'
 
 const EditListing = () => {
   const [loading, setLoading] = useState(false)
@@ -61,7 +61,7 @@ const EditListing = () => {
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
           setListing(docSnap.data() as ListingData)
-          setFormData({...docSnap.data() as ListingFormData})
+          setFormData({ ...(docSnap.data() as ListingFormData) })
           setLoading(false)
         } else {
           navigate('/')
@@ -169,13 +169,13 @@ const EditListing = () => {
     }
 
     // Store all images and create an array with stored image urls
-    const imageUrls = await Promise.all(
+    const imageUrls = (await Promise.all(
       [...images].map((image) => storeImage(image))
     ).catch(() => {
       setLoading(false)
       toast.error('Images uploading failed')
       return
-    }) as string[]
+    })) as string[]
 
     // Put all data together
     const formDataCopy: ListingData = {

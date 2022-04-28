@@ -59,11 +59,7 @@ const ListingItem = ({ listing, id, onEdit, onDelete }: Props) => {
         </button>
       )}
       {onEdit && (
-        <button
-          type='button'
-          className='editButton'
-          onClick={() => onEdit(id)}
-        >
+        <button type='button' className='editButton' onClick={() => onEdit(id)}>
           Edit listing
         </button>
       )}

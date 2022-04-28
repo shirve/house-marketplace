@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, updateProfile } from 'firebase/auth'
-import { doc, updateDoc, collection, getDocs, query, where, orderBy, deleteDoc } from 'firebase/firestore'
+import {
+  doc,
+  updateDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  deleteDoc,
+} from 'firebase/firestore'
 import { db } from '../firebase.config'
 import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg'
 import homeIcon from '../assets/svg/homeIcon.svg'
@@ -27,19 +36,23 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserListings = async () => {
       const listingsRef = collection(db, 'listings')
-      const q = query(listingsRef, where('userRef', '==', auth.currentUser?.uid), orderBy('timestamp', 'desc'))
+      const q = query(
+        listingsRef,
+        where('userRef', '==', auth.currentUser?.uid),
+        orderBy('timestamp', 'desc')
+      )
       const querySnap = await getDocs(q)
 
-      let listings: Listing[] = []
+      let fetchedListings: Listing[] = []
 
       querySnap.forEach((doc) => {
-        return listings.push({
+        return fetchedListings.push({
           id: doc.id,
           data: doc.data() as ListingData,
         })
       })
 
-      setListings(listings)
+      setListings(fetchedListings)
       setLoading(false)
     }
     fetchUserListings()
@@ -58,9 +71,13 @@ const Profile = () => {
   }
 
   const onDelete = async (listingId: string, listingName: string) => {
-    if (window.confirm(`Are you sure you want to delete listing: ${listingName}?`)) {
+    if (
+      window.confirm(`Are you sure you want to delete listing: ${listingName}?`)
+    ) {
       await deleteDoc(doc(db, 'listings', listingId))
-      const updatedListings = listings.filter((listing) => listing.id !== listingId)
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingId
+      )
       setListings(updatedListings)
     }
   }
@@ -135,10 +152,16 @@ const Profile = () => {
         </Link>
         {!loading && listings.length > 0 && (
           <React.Fragment>
-            <p className="listingText">Your listings</p>
-            <ul className="listingsList">
-              {listings.map(listing => (
-                <ListingItem key={listing.id} listing={listing.data} id={listing.id} onEdit={() => onEdit(listing.id)} onDelete={() => onDelete(listing.id, listing.data.name)} />
+            <p className='listingText'>Your listings</p>
+            <ul className='listingsList'>
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  listing={listing.data}
+                  id={listing.id}
+                  onEdit={() => onEdit(listing.id)}
+                  onDelete={() => onDelete(listing.id, listing.data.name)}
+                />
               ))}
             </ul>
           </React.Fragment>

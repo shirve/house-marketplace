@@ -24,7 +24,7 @@ const Listing = () => {
 
   useEffect(() => {
     const fetchListing = async () => {
-      if (params.listingId !== undefined) {
+      if (params.listingId) {
         const docRef = doc(db, 'listings', params.listingId)
         const docSnap = await getDoc(docRef)
 

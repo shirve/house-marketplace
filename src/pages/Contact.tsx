@@ -14,7 +14,7 @@ const Contact = () => {
 
   useEffect(() => {
     const getLandlord = async () => {
-      if (params.landlordId !== undefined) {
+      if (params.landlordId) {
         const docRef = doc(db, 'users', params.landlordId)
         const docSnap = await getDoc(docRef)
 

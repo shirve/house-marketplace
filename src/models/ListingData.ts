@@ -1,4 +1,4 @@
-import { FieldValue } from "firebase/firestore"
+import { FieldValue } from 'firebase/firestore'
 
 export interface ListingData {
   [key: string]: any

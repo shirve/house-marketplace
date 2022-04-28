@@ -6,14 +6,14 @@ import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRig
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import OAuth from '../components/OAuth'
 
-interface IFormData {
+interface FormData {
   email: string
   password: string
 }
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState<IFormData>({
+  const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
   })

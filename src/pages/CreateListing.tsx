@@ -12,7 +12,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { v4 as uuidv4 } from 'uuid'
 import { toast } from 'react-toastify'
-import { ListingFormData } from '../models/ListingFormData';
+import { ListingFormData } from '../models/ListingFormData'
 import { ListingData } from '../models/ListingData'
 
 const CreateListing = () => {
@@ -138,13 +138,13 @@ const CreateListing = () => {
     }
 
     // Store all images and create an array with stored image urls
-    const imageUrls = await Promise.all(
+    const imageUrls = (await Promise.all(
       [...images].map((image) => storeImage(image))
     ).catch(() => {
       setLoading(false)
       toast.error('Images uploading failed')
       return
-    }) as string[]
+    })) as string[]
 
     // Put all data together
     const formDataCopy: ListingData = {

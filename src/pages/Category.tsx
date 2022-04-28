@@ -9,7 +9,7 @@ import {
   limit,
   startAfter,
   QueryDocumentSnapshot,
-  DocumentData
+  DocumentData,
 } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
@@ -21,7 +21,8 @@ import ListingItem from '../components/ListingItem'
 const Category = () => {
   const [listings, setListings] = useState<Listing[]>([] as Listing[])
   const [loading, setLoading] = useState(true)
-  const [lastFetchedListing, setLastFetchedListing] = useState<QueryDocumentSnapshot<DocumentData>>()
+  const [lastFetchedListing, setLastFetchedListing] =
+    useState<QueryDocumentSnapshot<DocumentData>>()
 
   const params = useParams()
 
@@ -119,7 +120,9 @@ const Category = () => {
             </ul>
           </main>
           {lastFetchedListing && (
-            <p className="loadMore" onClick={loadMoreListings}>Load More</p>
+            <p className='loadMore' onClick={loadMoreListings}>
+              Load More
+            </p>
           )}
         </>
       ) : (

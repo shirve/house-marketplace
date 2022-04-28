@@ -20,8 +20,8 @@ import ListingItem from '../components/ListingItem'
 const Offers = () => {
   const [listings, setListings] = useState<Listing[]>([] as Listing[])
   const [loading, setLoading] = useState(true)
-  const [lastFetchedListing, setLastFetchedListing] = useState<QueryDocumentSnapshot<DocumentData>>()
-
+  const [lastFetchedListing, setLastFetchedListing] =
+    useState<QueryDocumentSnapshot<DocumentData>>()
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -113,7 +113,9 @@ const Offers = () => {
             </ul>
           </main>
           {lastFetchedListing && (
-            <p className="loadMore" onClick={loadMoreListings}>Load More</p>
+            <p className='loadMore' onClick={loadMoreListings}>
+              Load More
+            </p>
           )}
         </>
       ) : (
