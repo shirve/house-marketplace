@@ -106,7 +106,7 @@ button {
 .listingDetails,
 .category,
 .explore {
-  margin: 1rem;
+  margin: 1rem 1rem 10rem 1rem;
 }
 
 @media (min-width: 1024px) {
@@ -117,7 +117,7 @@ button {
   .listingDetails,
   .category,
   .explore {
-    margin: 3rem;
+    margin: 3rem 3rem 10rem 3rem;
   }
 }
 
